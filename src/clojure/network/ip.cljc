@@ -291,7 +291,16 @@
                      "Address count: " (count record)
                      \newline)))))
 
-
+#?(:clj
+   (defmethod clojure.pprint/simple-dispatch Network [record]
+     (let [ip (.ip record)
+           subnet (.mask record)]
+       (println
+        (str "Network: " ip \/  subnet \newline
+             "Network address: " (get-network-address ip subnet) \newline
+             "Broadcast address: " (get-broadcast-address ip subnet) \newline
+             "Address count: " (count record)
+             \newline)))))
 
 ;; NETWORK UTILS
 (def IPv4_parts (take 15 (iterate (partial * 2) 1)))
